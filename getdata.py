@@ -5,7 +5,7 @@ import init
 #Path to where text files save, change on own device
 save_path = "C:/Users/12244/yoonp/independentCS/trump-league"
 
-screen_name = 'realDonaldTrump'
+screen_name = 'realdonaldtrump'
 subreddits = ["leagueoflegends", "LeagueOfMemes", "summonerschool"]
 
 # creates a new file
@@ -24,16 +24,23 @@ def get_reddit():
     for sb in subreddits:
         subreddit = reddit.subreddit(sb)
 
-        if cm == "none":
-            with open(os.path.join(save_path,'data.txt'), 'a+', encoding='utf-8') as file:
-                for comment in subreddit.comments(limit=None):
-                    numComments += 1
-                    file.write(str(comment.body) + "\n")
+        comments = []
+
+        banned = "*I am a bot, and this action was performed automatically"
+
+        for comment in subreddit.comments(limit=None):
+            if banned.lower() not in str(comment.body).lower():
+                comments.append(str(comment.body)) 
+
+        if cm == "none" or len(comments) < int(cm):
+            limit = len(comments)
         else:
-            with open(os.path.join(save_path,'data.txt'), 'a+', encoding='utf-8') as file:
-                for comment in subreddit.comments(limit=int(cm)):
-                    numComments += 1
-                    file.write(str(comment.body) + "\n")
+            limit = int(cm)
+
+        with open(os.path.join(save_path,'data.txt'), 'a+', encoding='utf-8') as file:
+            for i in range(limit):
+                numComments += 1
+                file.write(comments[i] + "\n")
 
     print("Got " + str(numComments) +" reddit comments.")
 
