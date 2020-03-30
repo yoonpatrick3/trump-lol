@@ -5,7 +5,7 @@ import init
 #Path to where text files save, change on own device
 save_path = "C:/Users/12244/yoonp/independentCS/trump-league"
 
-screen_name = 'tsm_leffen'
+screen_name = 'realDonaldTrump'
 subreddits = ["leagueoflegends", "LeagueOfMemes", "summonerschool"]
 
 # creates a new file
